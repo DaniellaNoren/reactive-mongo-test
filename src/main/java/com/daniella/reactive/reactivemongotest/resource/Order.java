@@ -2,22 +2,33 @@ package com.daniella.reactive.reactivemongotest.resource;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+
 public class Order {
 
     private String id;
     private String dish;
     private int price;
     private String extra;
+    private Station station;
 
-    public Order(String id, String dish, int price, String extra) {
+    public Order(String id, String dish, int price, String extra, Station station) {
         this.id = id;
         this.dish = dish;
         this.price = price;
         this.extra = extra;
+
+        this.station = station;
     }
 
     public Order() {
+    }
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
     }
 
     public String getId() {
@@ -58,7 +69,8 @@ public class Order {
                 "id='" + id + '\'' +
                 ", dish='" + dish + '\'' +
                 ", price=" + price + '\'' +
-                ", extra=" + extra +
+                ", extra=" + extra + '\'' +
+                ", station="+ station.getName() +
                 '}';
     }
 }

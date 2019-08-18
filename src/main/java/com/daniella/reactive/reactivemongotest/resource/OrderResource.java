@@ -10,7 +10,7 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
-
+@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600)
 @RestController
 @RequestMapping("/orders")
 public class OrderResource {
@@ -35,6 +35,7 @@ public class OrderResource {
         return orderRep.findById(id);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/{id}/events", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<OrderEvent> getEvents(@PathVariable("id") final String id){
         return orderRep.findById(id)
@@ -51,6 +52,11 @@ public class OrderResource {
                            return obj.getT2();
                         });
                 });
+    }
+
+    @GetMapping("/index")
+    public String index(){
+        return "index";
     }
 
     @PostMapping
